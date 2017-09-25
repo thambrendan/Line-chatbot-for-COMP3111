@@ -46,7 +46,8 @@ import com.example.bot.spring.DatabaseEngine;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
+// @SpringBootTest(classes = { KitchenSinkTester.class, DatabaseEngine.class })
+@SpringBootTest(classes = { KitchenSinkTester.class, SQLDatabaseEngine.class })
 public class KitchenSinkTester {
 	@Autowired
 	private DatabaseEngine databaseEngine;
@@ -72,21 +73,26 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("def"));
+		// number of hits
+		assertThat(result.matches("^(def)(\\d+)")); 
 	}
 	
 	@Test
-	public void testFoundContains() throws Exception {
+	public void testSubString() throws Exception {
 		boolean thrown = false;
 		String result = null;
+		String rdmStr = "nadnerbww";
+		
 		try {
-			result = this.databaseEngine.search("hello I am fine in HKUST!");
+			result = this.databaseEngine.search(rdmStr + "Hi" + rdmStr);
 		} catch (Exception e) {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("Great!"));
+		// number of hits
+		assertThat(result.matches("^(Hey, how things going?)(\\d+)")); 
 	}
+	
 }
 
 
