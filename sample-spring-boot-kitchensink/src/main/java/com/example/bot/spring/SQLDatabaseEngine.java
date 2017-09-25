@@ -37,7 +37,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 				// Perform update for number of hits in db
 				try {
 					stmtUpdate = connection.prepareStatement(
-						"UPDATE defaulttable"
+						"UPDATE defaulttable "
 						+ "SET hits = hits + 1 "
 						+ "WHERE ? LIKE concat('%', LOWER(keyword), '%')"
 					);
